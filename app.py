@@ -11,10 +11,10 @@ def gettime():
 
     return jsonify(user_id)
 
-@app.route('/addTime', methods=['POST'])
+@app.route('/addtime', methods=['POST'])
 def posttime():
-    user_id = request.form['id']
-    user_time = request.form['time']
+    user_id = request.form.get('id')
+    user_time = request.form.get('time')
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
