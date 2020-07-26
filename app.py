@@ -51,6 +51,8 @@ if __name__ == '__main__':
                          socketKeepAlive=True)
 
     db = client.get_default_database()
+    print(db)
+    print(db.collection_names())
     times_coll = db.times_collection
 
     app.run();
