@@ -35,6 +35,10 @@ def deleteall():
 
     return jsonify("deleteall")
 
+@app.route('/', methods=['GET'])
+def test():
+    return "hello"
+
 if __name__ == '__main__':
     load_dotenv()
     user = os.getenv("USER")
