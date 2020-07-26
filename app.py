@@ -7,31 +7,31 @@ app = Flask(__name__)
 
 @app.route('/gettime', methods=['GET'])
 def gettime():
-    name = request.args.get("name", None)
+    user_id = request.args.get("id", None)
 
-    return jsonify(name)
+    return jsonify(user_id)
 
 @app.route('/addTime', methods=['POST'])
 def posttime():
-    user_name = request.form['name']
-    user_time = request.form['id']
+    user_id = request.form['id']
+    user_time = request.form['time']
 
-    if times_coll.find_one({'name': user_name}) is not None:
-        times_coll.update_one({'name': user_name}, {'$push': {'time': user_time}})
+    if times_coll.find_one({'id': user_id}) is not None:
+        times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
     else:
-        times_coll.insert_one({'name': user_name, 'time': [user_time]})
+        times_coll.insert_one({'id': user_id, 'time': [user_time]})
 
-    return jsonify({'name': user_name, 'time': user_time})
+    return jsonify({'id': user_id, 'time': user_time})
 
 @app.route('/deleteone', methods=['POST'])
 def deleteone():
-    param = request.form.get('name')
+    param = request.form.get('id')
 
     return jsonify("deleteone")
 
 @app.route('/deleteall', methods=['POST'])
 def deleteall():
-    param = request.form.get('name')
+    param = request.form.get('id')
 
     return jsonify("deleteall")
 
