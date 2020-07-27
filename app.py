@@ -13,8 +13,9 @@ def gettime():
 
 @app.route('/addtime', methods=['POST'])
 def posttime():
-    user_id = request.form.get('id')
-    user_time = request.form.get('time')
+    data = request.get_json()
+    user_id = data['id']
+    user_time = data['time']
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
@@ -37,6 +38,7 @@ def deleteall():
 
 @app.route('/', methods=['GET'])
 def test():
+    app.logger.info("hey")
     return "hello"
 
 if __name__ == '__main__':
@@ -44,10 +46,12 @@ if __name__ == '__main__':
     user = os.getenv("DBUSER")
     pw = os.getenv("PW")
 
+
     uri = "mongodb://" + user + ":" + pw + "@ds153096.mlab.com:53096/heroku_lws15pr3"
+    #uri = "mongodb+srv://vdoubleu:passwordVW12345@cluster0.gnkvv.mongodb.net/test?retryWrites=true&w=majority"
     client = MongoClient(uri)
 
-    db = client.get_default_database()
-    times_coll = db['times_collection']
+    db = client.test
+    times_coll = db.times_collection
 
-    app.run();
+    app.run(debug=True);
