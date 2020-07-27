@@ -49,9 +49,9 @@ if __name__ == '__main__':
     client = MongoClient(uri)
 
     db = client.get_default_database()
-    logging.info(db)
-    logging.info(db.list_collection_names())
+    app.logger.info(db)
+    app.logger.info(db.list_collection_names())
     times_coll = db.times_collection
-    logging.info(times_coll)
+    app.logger.info(times_coll)
 
     app.run();
