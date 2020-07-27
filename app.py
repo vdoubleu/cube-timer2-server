@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, after_this_request
 from mongoConnect import connect
+import JSON
 
 app = Flask(__name__)
 
@@ -45,11 +46,9 @@ def posttime():
         return response
     
     times_coll = connect()
-    app.logger.info(request)
 
-    data = request.json
-    user_id = data['id']
-    user_time = data['time']
+    user_id = request.form['id']
+    user_time = request.form['time']
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
