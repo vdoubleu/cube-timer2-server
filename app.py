@@ -5,6 +5,17 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
+load_dotenv()
+user = os.getenv("DBUSER")
+pw = os.getenv("PW")
+
+uri = "mongodb://vdoubleu:victor12345@ds153096.mlab.com:53096/heroku_lws15pr3"
+client = MongoClient(uri)
+
+db = client.get_default_database()
+times_coll = db.times_collection
+
+
 @app.route('/gettime', methods=['GET'])
 def gettime():
     user_id = request.args.get("id", None)
@@ -42,16 +53,6 @@ def test():
     return "hello"
 
 if __name__ == '__main__':
-    load_dotenv()
-    user = os.getenv("DBUSER")
-    pw = os.getenv("PW")
-
-
-    uri = "mongodb://vdoubleu:victor12345@ds153096.mlab.com:53096/heroku_lws15pr3"
     #uri = "mongodb+srv://vdoubleu:passwordVW12345@cluster0.gnkvv.mongodb.net/test?retryWrites=true&w=majority"
-    client = MongoClient(uri)
-
-    db = client.heroku_lws15pr3
-    times_coll = db.times_collection
 
     app.run(debug=True);
