@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from mongoConnect import connect
 from pymongo import MongoClient
 import os
-from boto.s3.connection import S3Connection
 
 app = Flask(__name__)
 
@@ -52,5 +51,4 @@ def test():
     return "hello"
 
 if __name__ == '__main__':
-    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
     app.run();
