@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, after_this_request
 from mongoConnect import connect
-import JSON
 
 app = Flask(__name__)
 
