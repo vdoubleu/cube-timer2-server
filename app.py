@@ -5,6 +5,11 @@ app = Flask(__name__)
 
 @app.route('/gettime', methods=['GET'])
 def gettime():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
     times_coll = connect()
 
     user_id = request.args.get("id")
@@ -31,6 +36,11 @@ def gettime():
 
 @app.route('/addtime', methods=['POST'])
 def posttime():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
     times_coll = connect()
 
     data = request.get_json()
@@ -46,6 +56,11 @@ def posttime():
 
 @app.route('/deleteone', methods=['POST'])
 def deleteone():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
     times_coll = connect()
 
     data = request.get_json()
@@ -60,6 +75,11 @@ def deleteone():
 
 @app.route('/deleteall', methods=['POST'])
 def deleteall():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
     times_coll = connect()
 
     data = request.get_json()
@@ -74,6 +94,11 @@ def deleteall():
 
 @app.route('/', methods=['GET'])
 def test():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
     app.logger.info("hey")
     return "hello"
 
