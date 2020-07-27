@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from mongoConnect import connect
 from pymongo import MongoClient
 import os
 
