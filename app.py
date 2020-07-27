@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from mongoConnect import connect
 from pymongo import MongoClient
 import os
-from dotenv import load_dotenv
+from boto.s3.connection import S3Connection
 
 app = Flask(__name__)
 
@@ -14,9 +14,8 @@ def gettime():
 
 @app.route('/addtime', methods=['POST'])
 def posttime():
-    load_dotenv()
     user = os.getenv("DBUSER")
-    pw = os.getenv("PW")
+    pw = os.getenv("DBPW")
 
     uri = "mongodb+srv://" + user + ":" + pw + "@cluster0.gnkvv.mongodb.net/test?retryWrites=true&w=majority"
     client = MongoClient(uri)
@@ -53,4 +52,5 @@ def test():
     return "hello"
 
 if __name__ == '__main__':
+    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
     app.run();
