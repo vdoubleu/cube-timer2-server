@@ -39,11 +39,13 @@ def posttime():
     @after_this_request
     def add_header(response):
         response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'content-type')
         return response
     
     times_coll = connect()
+    app.logger.info(request)
 
-    data = request.get_json()
+    data = request.json
     user_id = data['id']
     user_time = data['time']
 
