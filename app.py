@@ -7,7 +7,10 @@ app = Flask(__name__)
 def gettime():
     times_coll = connect()
 
-    user_id = request.args.get("id", None)
+    user_id = request.args.get("id")
+    
+    if user_id is None:
+        return jsonify("user not found")
     
     get_data = times_coll.find_one({"id": user_id})
     times = get_data["time"]
