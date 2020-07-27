@@ -48,6 +48,6 @@ if __name__ == '__main__':
     client = MongoClient(uri)
 
     db = client.get_default_database()
-    times_coll = db.times_collection
+    times_coll = db['times_collection']
 
     app.run();
