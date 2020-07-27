@@ -54,4 +54,4 @@ if __name__ == '__main__':
     times_coll = db.times_collection
     app.logger.info(times_coll)
 
-    app.run();
+    app.run(debug=True);
