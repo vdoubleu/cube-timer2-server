@@ -47,11 +47,11 @@ if __name__ == '__main__':
     pw = os.getenv("PW")
 
 
-    uri = "mongodb://" + user + ":" + pw + "@ds153096.mlab.com:53096/heroku_lws15pr3"
+    uri = "mongodb://vdoubleu:victor12345@ds153096.mlab.com:53096/heroku_lws15pr3"
     #uri = "mongodb+srv://vdoubleu:passwordVW12345@cluster0.gnkvv.mongodb.net/test?retryWrites=true&w=majority"
     client = MongoClient(uri)
 
-    db = client.test
+    db = client.heroku_lws15pr3
     times_coll = db.times_collection
 
     app.run(debug=True);
