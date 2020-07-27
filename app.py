@@ -39,11 +39,6 @@ def deleteall():
 def test():
     return "hello"
 
-if __name__ != '__main__':
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
-
 if __name__ == '__main__':
     load_dotenv()
     user = os.getenv("DBUSER")
@@ -55,4 +50,4 @@ if __name__ == '__main__':
     db = client.get_default_database()
     times_coll = db.times_collection
 
-    app.run(debug=True);
+    app.run();
