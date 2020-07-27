@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify, after_this_request
 from mongoConnect import connect
+from flask-cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/gettime', methods=['GET'])
 def gettime():
@@ -46,8 +48,9 @@ def posttime():
     
     times_coll = connect()
 
-    user_id = request.form['id']
-    user_time = request.form['time']
+    data = request.get_json()
+    user_id = data['id']
+    user_time = data['time']
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
