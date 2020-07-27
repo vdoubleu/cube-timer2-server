@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-from pymongo import MongoClient
-import os
+from mongoConnect import connect
 
 app = Flask(__name__)
 
@@ -12,14 +11,7 @@ def gettime():
 
 @app.route('/addtime', methods=['POST'])
 def posttime():
-    user = os.getenv("DBUSER")
-    pw = os.getenv("DBPW")
-
-    uri = "mongodb+srv://" + user + ":" + pw + "@cluster0.gnkvv.mongodb.net/test?retryWrites=true&w=majority"
-    client = MongoClient(uri)
-
-    db = client.test
-    times_coll = db.times_collection
+    times_coll = connect()
 
     data = request.get_json()
     user_id = data['id']
