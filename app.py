@@ -51,6 +51,9 @@ def deleteone():
     data = request.get_json()
     user_id = data['id']
 
+    if user_id is None:
+        return jsonify("user not found")
+
     times_coll.update_one({"id": user_id}, {"$pop": {"time": 1}})
 
     return jsonify("deleteone")
@@ -61,6 +64,9 @@ def deleteall():
 
     data = request.get_json()
     user_id = data['id']
+
+    if user_id is None:
+        return jsonify("user not found")
 
     times_coll.update_one({"id": user_id}, {"$set": {"time": []}})
 
