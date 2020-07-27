@@ -39,7 +39,9 @@ def posttime():
     @after_this_request
     def add_header(response):
         response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'content-type')
+        response.headers.add('Access-Control-Allow-Credentials', True);
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+        response.headers.add('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json')
         return response
     
     times_coll = connect()
