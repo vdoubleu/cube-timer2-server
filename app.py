@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
 from pymongo import MongoClient
+import logging
 
 app = Flask(__name__)
 
@@ -41,18 +42,16 @@ def test():
 
 if __name__ == '__main__':
     load_dotenv()
-    user = os.getenv("USER")
+    user = os.getenv("DBUSER")
     pw = os.getenv("PW")
 
     uri = "mongodb://" + user + ":" + pw + "@ds153096.mlab.com:53096/heroku_lws15pr3"
-    client = MongoClient(uri,
-                         connectTimeoutMS=30000,
-                         socketTimeoutMS=None,
-                         socketKeepAlive=True)
+    client = MongoClient(uri)
 
     db = client.get_default_database()
-    print(db)
-    print(db.collection_names())
+    logging.info(db)
+    logging.info(db.list_collection_names())
     times_coll = db.times_collection
+    logging.info(times_coll)
 
     app.run();
