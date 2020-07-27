@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, after_this_request
 from mongoConnect import connect
-from flask-cors import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
