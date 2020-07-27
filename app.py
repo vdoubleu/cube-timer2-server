@@ -5,7 +5,24 @@ app = Flask(__name__)
 
 @app.route('/gettime', methods=['GET'])
 def gettime():
+    times_coll = connect()
+
     user_id = request.args.get("id", None)
+    
+    get_data = times_coll.find_one({"id": user_id})
+    times = get_data["time"]
+
+    reformatted_times = []
+
+    count = 0
+    for x in times:
+        reformatted_times.append({"name": str(count), "solvetime": x})
+        count += 1
+
+    if get_data is not None:
+        return jsonify({"reformtime": reformatted_times})
+    else:
+        return jsonify(None)
 
     return jsonify(user_id)
 
@@ -26,13 +43,23 @@ def posttime():
 
 @app.route('/deleteone', methods=['POST'])
 def deleteone():
-    param = request.form.get('id')
+    times_coll = connect()
+
+    data = request.get_json()
+    user_id = data['id']
+
+    times_coll.update_one({"id": user_id}, {"$pop": {"time": 1}})
 
     return jsonify("deleteone")
 
 @app.route('/deleteall', methods=['POST'])
 def deleteall():
-    param = request.form.get('id')
+    times_coll = connect()
+
+    data = request.get_json()
+    user_id = data['id']
+
+    times_coll.update_one({"id": user_id}, {"$set": {"time": []}})
 
     return jsonify("deleteall")
 
