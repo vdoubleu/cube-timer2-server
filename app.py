@@ -41,7 +41,7 @@ def posttime():
     times_coll = connect()
 
     user_id = request.args.get("id")
-    user_id = request.args.get("time")
+    user_time = request.args.get("time")
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
