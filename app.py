@@ -20,6 +20,9 @@ def gettime():
         return jsonify("user not found")
     
     get_data = times_coll.find_one({"id": user_id})
+    if get_data is None:
+        return jsonify({"reformtime": []})
+
     times = get_data["time"]
 
     reformatted_times = []
