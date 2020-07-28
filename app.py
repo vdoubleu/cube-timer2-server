@@ -40,9 +40,8 @@ def gettime():
 def posttime():
     times_coll = connect()
 
-    data = request.get_json()
-    user_id = data['id']
-    user_time = data['time']
+    user_id = request.args.get("id")
+    user_id = request.args.get("time")
 
     if times_coll.find_one({'id': user_id}) is not None:
         times_coll.update_one({'id': user_id}, {'$push': {'time': user_time}})
@@ -51,7 +50,7 @@ def posttime():
 
     return jsonify({'id': user_id, 'time': user_time})
 
-@app.route('/deleteone', methods=['POST'])
+@app.route('/deleteone', methods=['GET'])
 def deleteone():
     @after_this_request
     def add_header(response):
@@ -60,8 +59,7 @@ def deleteone():
 
     times_coll = connect()
 
-    data = request.get_json()
-    user_id = data['id']
+    user_id = request.args.get("id")
 
     if user_id is None:
         return jsonify("user not found")
@@ -70,7 +68,7 @@ def deleteone():
 
     return jsonify("deleteone")
 
-@app.route('/deleteall', methods=['POST'])
+@app.route('/deleteall', methods=['GET'])
 def deleteall():
     @after_this_request
     def add_header(response):
@@ -79,8 +77,7 @@ def deleteall():
 
     times_coll = connect()
 
-    data = request.get_json()
-    user_id = data['id']
+    user_id = request.args.get("id")
 
     if user_id is None:
         return jsonify("user not found")
