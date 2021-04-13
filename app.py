@@ -5,6 +5,15 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/health', methods=['GET'])
+def health():
+    @after_this_request
+    def add_header(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+
+    return 'alive'
+
 @app.route('/gettime', methods=['GET'])
 def gettime():
     @after_this_request
