@@ -10,3 +10,4 @@ This server has several routes:
  - gettimes (gets all the solves of a particular user)
  - deleteone (deletes the most recent solve time by a user)
  - deleteall (deletes all solves by a user)
+ - health (ping this to check if server is up and running, heroku turns of dynos that aren't used in a while)
